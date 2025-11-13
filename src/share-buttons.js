@@ -52,7 +52,7 @@
 
         /**
          * Method for get string in the special format by arguments
-         * from https://wcoder.github.io/notes/string-format-for-string-formating-in-javascript
+         * from https://ypakala.com/notes/string-format-for-string-formating-in-javascript
          * @param {string} str
          * @param {Array} args
          */

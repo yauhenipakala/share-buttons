@@ -2,7 +2,7 @@
 
 Simple, powerful, customizable and super lightweight (1 Kb Gzip) social buttons for your site.
 
-## [Demo](https://wcoder.github.io/share-buttons/)
+## [Demo](https://ypakala.com/demo/share-buttons/)
 
 ## Browser support
 
