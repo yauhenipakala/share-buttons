@@ -85,7 +85,7 @@ Odnoklassniki | ok
 Tumblr    | tu
 Hacker News | hn
 Xing      | xi
-Teams     | teams
+Teams     | mst
 EMail     | mail
 Print     | print
 Copy      | copy

@@ -44,7 +44,7 @@
             TU_CLASS_NAME = 'tu',
             HN_CLASS_NAME = 'hn',
             XI_CLASS_NAME = 'xi',
-            TEAMS_CLASS_NAME = 'teams',
+            TEAMS_CLASS_NAME = 'mst',
             MAIL_CLASS_NAME = 'mail',
             PRINT_CLASS_NAME = 'print',
             COPY_CLASS_NAME = 'copy',
