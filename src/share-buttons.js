@@ -27,6 +27,7 @@
             TU_LINK_FORMAT = 'https://www.tumblr.com/widgets/share/tool?posttype=link&title={0}&caption={0}&content={1}&canonicalUrl={1}&shareSource=tumblr_share_button',
             HN_LINK_FORMAT = 'https://news.ycombinator.com/submitlink?t={0}&u={1}',
             XI_LINK_FORMAT = 'https://www.xing.com/app/user?op=share;url={0};title={1}',
+            TEAMS_LINK_FORMAT = 'https://teams.microsoft.com/share?href={0}',
             MAIL_LINK_FORMAT = 'mailto:?subject={0}&body={1}',
             FB_CLASS_NAME = 'fb',
             VK_CLASS_NAME = 'vk',
@@ -43,6 +44,7 @@
             TU_CLASS_NAME = 'tu',
             HN_CLASS_NAME = 'hn',
             XI_CLASS_NAME = 'xi',
+            TEAMS_CLASS_NAME = 'teams',
             MAIL_CLASS_NAME = 'mail',
             PRINT_CLASS_NAME = 'print',
             COPY_CLASS_NAME = 'copy',
@@ -386,6 +388,12 @@
                         url,
                         mergeForTitle([title, desc])
                     ]),
+                    titleDef);
+                break;
+
+            case TEAMS_CLASS_NAME:
+                popupCenter(
+                    stringFormat(TEAMS_LINK_FORMAT, [ url ]),
                     titleDef);
                 break;
 
