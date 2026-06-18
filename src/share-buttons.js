@@ -27,7 +27,14 @@
             TU_LINK_FORMAT = 'https://www.tumblr.com/widgets/share/tool?posttype=link&title={0}&caption={0}&content={1}&canonicalUrl={1}&shareSource=tumblr_share_button',
             HN_LINK_FORMAT = 'https://news.ycombinator.com/submitlink?t={0}&u={1}',
             XI_LINK_FORMAT = 'https://www.xing.com/app/user?op=share;url={0};title={1}',
+
+            /**
+             * Docs: https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/build-and-test/share-to-teams-from-web-apps?tabs=method2#example
+             */
+            MST_LINK_FORMAT = 'https://teams.microsoft.com/share?href={0}&assignTitle={1}&msgText={2}',
+
             MAIL_LINK_FORMAT = 'mailto:?subject={0}&body={1}',
+
             FB_CLASS_NAME = 'fb',
             VK_CLASS_NAME = 'vk',
             TW_CLASS_NAME = 'tw',
@@ -43,6 +50,7 @@
             TU_CLASS_NAME = 'tu',
             HN_CLASS_NAME = 'hn',
             XI_CLASS_NAME = 'xi',
+            MST_CLASS_NAME = 'mst',
             MAIL_CLASS_NAME = 'mail',
             PRINT_CLASS_NAME = 'print',
             COPY_CLASS_NAME = 'copy',
@@ -385,6 +393,16 @@
                     stringFormat(XI_LINK_FORMAT, [
                         url,
                         mergeForTitle([title, desc])
+                    ]),
+                    titleDef);
+                break;
+
+            case MST_CLASS_NAME:
+                popupCenter(
+                    stringFormat(MST_LINK_FORMAT, [
+                        url,
+                        title,
+                        desc,
                     ]),
                     titleDef);
                 break;
