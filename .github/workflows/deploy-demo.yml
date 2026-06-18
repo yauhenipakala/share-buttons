@@ -1,0 +1,87 @@
+name: Deploy demo
+
+on:
+  push:
+    branches:
+      - main
+      - demo
+    paths-ignore:
+      - '.vscode/**'
+      - 'example/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-demo
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+        env:
+          ANALYTICS: ${{ secrets.ANALYTICS }}
+
+      - name: Stamp build revision
+        run: |
+          build_date="$(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          revision="$(git rev-parse HEAD)"
+          printf '\n<!-- Build: %s, revision: %s -->\n' "$build_date" "$revision" >> site/index.html
+
+      - name: Upload site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: site/
+
+  deploy:
+    name: Deploy demo
+    environment: ypakala.com
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 15
+
+    steps:
+      - name: Download site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: site/
+
+      - name: Install lftp
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lftp
+
+      - name: Deploy site via FTP
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          lftp <<EOF
+          set ftp:ssl-allow no
+          open "$FTP_SERVER"
+          user "$FTP_USERNAME" "$FTP_PASSWORD"
+          mirror -R --verbose --parallel=10 ./site/ .
+          bye
+          EOF
