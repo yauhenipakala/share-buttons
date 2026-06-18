@@ -1,5 +1,8 @@
 
 example
+demo
+site
 gulpfile.js
 package-lock.json
 mise.toml
+.env*
