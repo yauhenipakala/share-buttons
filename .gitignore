@@ -61,3 +61,8 @@ typings/
 .env
 
 
+# macOS
+.DS_Store
+
+# Custom
+site
