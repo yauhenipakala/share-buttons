@@ -2,9 +2,6 @@
   "name": "share-buttons",
   "version": "1.10.0",
   "description": "Simple social buttons for your site.",
-  "directories": {
-    "example": "example"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "gulp build"
