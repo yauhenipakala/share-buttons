@@ -1,4 +1,4 @@
-# Share Buttons [![npm](https://img.shields.io/npm/v/share-buttons.svg)](https://www.npmjs.com/package/share-buttons) ![license](https://img.shields.io/github/license/wcoder/share-buttons.svg)
+# Share Buttons [![npm](https://img.shields.io/npm/v/share-buttons.svg)](https://www.npmjs.com/package/share-buttons) ![license](https://img.shields.io/github/license/yauhenipakala/share-buttons.svg)
 
 Simple, powerful, customizable and super lightweight (1 Kb Gzip) social buttons for your site.
 
@@ -125,4 +125,4 @@ You can also use [simple-icons](https://github.com/simple-icons/simple-icons).
 
 ----
 
-&copy; 2015+ Yauheni Pakala and [contributors](https://github.com/wcoder/share-buttons/graphs/contributors) | MIT
+&copy; 2015+ Yauheni Pakala and [contributors](https://github.com/yauhenipakala/share-buttons/graphs/contributors) | MIT

@@ -48,6 +48,7 @@
     "email",
     "print",
     "copy",
-    "webshare"
+    "webshare",
+    "teams"
   ]
 }
