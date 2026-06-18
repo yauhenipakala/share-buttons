@@ -21,7 +21,6 @@
             EV_LINK_FORMAT = 'https://www.evernote.com/clip.action?url={0}&t={1}',
             IN_LINK_FORMAT = 'https://www.linkedin.com/shareArticle?mini=true&url={0}&title={1}&summary={2}&source={0}',
             PI_LINK_FORMAT = 'https://pinterest.com/pin/create/button/?url={0}&media={0}&description={1}',
-            SK_LINK_FORMAT = 'https://web.skype.com/share?url={0}&source=button&text={1}',
             WA_LINK_FORMAT = 'https://wa.me/?text={0}%20{1}',
             OK_LINK_FORMAT = 'https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&service=odnoklassniki&st.shareUrl={0}',
             TU_LINK_FORMAT = 'https://www.tumblr.com/widgets/share/tool?posttype=link&title={0}&caption={0}&content={1}&canonicalUrl={1}&shareSource=tumblr_share_button',
@@ -44,7 +43,6 @@
             EV_CLASS_NAME = 'ev',
             IN_CLASS_NAME = 'in',
             PI_CLASS_NAME = 'pi',
-            SK_CLASS_NAME = 'sk',
             WA_CLASS_NAME = 'wa',
             OK_CLASS_NAME = 'ok',
             TU_CLASS_NAME = 'tu',
@@ -340,15 +338,6 @@
             case PI_CLASS_NAME:
                 popupCenter(
                     stringFormat(PI_LINK_FORMAT, [
-                        url,
-                        mergeForTitle([title, desc])
-                    ]),
-                    titleDef);
-                break;
-
-            case SK_CLASS_NAME:
-                popupCenter(
-                    stringFormat(SK_LINK_FORMAT, [
                         url,
                         mergeForTitle([title, desc])
                     ]),

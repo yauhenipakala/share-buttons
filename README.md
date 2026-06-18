@@ -79,7 +79,6 @@ Reddit    | re
 Evernote  | ev
 LinkedIn  | in
 Pinterest | pi
-Skype     | sk
 WhatsApp  | wa
 Odnoklassniki | ok
 Tumblr    | tu
