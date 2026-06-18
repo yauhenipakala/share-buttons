@@ -1,6 +1,6 @@
 {
   "name": "share-buttons",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "Simple social buttons for your site.",
   "directories": {
     "example": "example"
@@ -11,16 +11,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wcoder/share-buttons.git"
+    "url": "git+https://github.com/yauhenipakala/share-buttons.git"
   },
   "author": "Yauheni Pakala <evgeniy.pakalo@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wcoder/share-buttons/issues"
+    "url": "https://github.com/yauhenipakala/share-buttons/issues"
   },
-  "homepage": "https://wcoder.github.io/share-buttons",
+  "homepage": "https://ypakala.com/demo/share-buttons/",
   "devDependencies": {
-    "gulp": "^5.0.0",
+    "gulp": "^5.0.1",
     "gulp-uglify": "^3.0.2"
   },
   "main": "dist/share-buttons.js",
@@ -48,6 +48,7 @@
     "email",
     "print",
     "copy",
-    "webshare"
+    "webshare",
+    "teams"
   ]
 }
