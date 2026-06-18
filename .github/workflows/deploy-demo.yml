@@ -19,6 +19,7 @@ concurrency:
 jobs:
   build:
     name: Build demo
+    environment: ypakala.com
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -68,7 +69,6 @@ jobs:
 
       - name: Install lftp
         run: |
-          sudo apt-get update
           sudo apt-get install -y lftp
 
       - name: Deploy site via FTP
