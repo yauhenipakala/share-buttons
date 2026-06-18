@@ -3,8 +3,7 @@ name: Deploy demo
 on:
   push:
     branches:
-      - main
-      - demo
+      - master
     paths-ignore:
       - '.vscode/**'
       - 'example/**'
