@@ -92,16 +92,20 @@ src/
 
 ## Build and packaging
 
-### `vite.config.ts` (library)
+### `vite.config.mts` (library)
 
 - `build.lib`: entry `src/share-buttons.ts`, `formats: ['umd']`, `name: 'ShareButtons'`,
   `fileName: () => 'share-buttons.js'`.
 - `build.target: 'es2015'`, minified, no sourcemap, `outDir: 'dist'`.
-- `vite-plugin-dts` with `rollupTypes: true` → `dist/share-buttons.d.ts`, post-processed to
-  include `export as namespace ShareButtons;` for global-script TypeScript users.
+- `vite-plugin-dts` with a `beforeWriteFile` hook: keep only the entry's declarations as
+  `dist/share-buttons.d.ts` (self-contained, since the entry exports only `update(): void`),
+  append `export as namespace ShareButtons;`, drop all other files. (`rollupTypes` was renamed
+  `bundleTypes` in v5 and needs `@microsoft/api-extractor`; avoided.)
+- Configs use `.mts` because `package.json` must not set `"type": "module"` (that would make
+  Node load the UMD `dist/share-buttons.js` as ESM and break `require`).
 - Vitest config lives here too: `test.environment: 'jsdom'`, `test.include: ['test/**/*.test.ts']`.
 
-### `vite.demo.config.ts` (demo site)
+### `vite.demo.config.mts` (demo site)
 
 - `root: 'demo'`, `build.outDir: '../site'`, `base: './'`, `emptyOutDir: true`.
 - Inline plugin:
@@ -127,9 +131,9 @@ src/
   `types: "dist/share-buttons.d.ts"`, `files: ["dist"]`.
 - Scripts:
   - `build:lib` — `vite build`
-  - `build:demo` — `vite build -c vite.demo.config.ts`
+  - `build:demo` — `vite build -c vite.demo.config.mts`
   - `build` — `npm run build:lib && npm run build:demo`
-  - `dev` — `concurrently "vite build --watch" "vite -c vite.demo.config.ts"`
+  - `dev` — `concurrently "vite build --watch" "vite -c vite.demo.config.mts"`
   - `test` — `vitest run`
   - `typecheck` — `tsc`
 - devDependencies removed: `gulp`, `gulp-htmlmin`, `gulp-rename`, `gulp-replace`,
