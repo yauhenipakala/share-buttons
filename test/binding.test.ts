@@ -97,6 +97,18 @@ describe('binding', () => {
         expect(print).not.toHaveBeenCalled();
     });
 
+    it('a value that cannot be encoded breaks only its own button', async () => {
+        const { open } = stubBrowser();
+        // a lone surrogate (e.g. a truncated emoji) makes encodeURIComponent throw
+        mount(shareBlock({ url: 'https://good.example/' }, ['fb']) + shareBlock({ title: 'Emoji \uD83D' }, ['fb']));
+        const { update } = await loadShareButtons();
+
+        expect(typeof update).toBe('function');
+        click('[data-id="fb"]');
+        expect(open).toHaveBeenCalledTimes(1);
+        expect(open.mock.calls[0][0]).toContain('u=https%3A%2F%2Fgood.example%2F');
+    });
+
     it('hides copy and share when unsupported', async () => {
         const { log } = stubBrowser();
         mount(shareBlock({}, ['copy', 'share']));

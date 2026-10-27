@@ -22,28 +22,43 @@ const listeners: Record<string, EventListener> = {};
  */
 function hideAll(selector: string): void {
     const elements = document.querySelectorAll<HTMLElement>(selector);
-    for (let i = 0; i < elements.length; i++) {
+    for (let i = elements.length; i--;) {
         elements[i].style.display = 'none';
     }
 }
 
 /**
- * Method for getting url, title and description from the container or the page, encoded for links
+ * Raw share values, encoded only when a link is clicked
  */
-function getContext(share: Element): ShareContext {
+interface ShareValues {
+    url: string;
+    title: string;
+    desc: string;
+}
+
+/**
+ * Method for getting url, title and description from the container or the page
+ */
+function getValues(share: Element): ShareValues {
     const metaDesc = document.querySelector('meta[name=description]');
 
     return {
-        url: encodeURIComponent(share.getAttribute('data-url') || window.location.href || ' '),
-        title: encodeURIComponent(share.getAttribute('data-title') || document.title || ' '),
-        desc: encodeURIComponent(share.getAttribute('data-desc') || (metaDesc && metaDesc.getAttribute('content')) || ' '),
+        url: share.getAttribute('data-url') || window.location.href || ' ',
+        title: share.getAttribute('data-title') || document.title || ' ',
+        desc: share.getAttribute('data-desc') || (metaDesc && metaDesc.getAttribute('content')) || ' ',
     };
 }
 
 /**
  * Method for handling chosen links
  */
-function share(id: string, ctx: ShareContext): void {
+function share(id: string, values: ShareValues): void {
+    const ctx: ShareContext = {
+        url: encodeURIComponent(values.url),
+        title: encodeURIComponent(values.title),
+        desc: encodeURIComponent(values.desc),
+    };
+
     if (isPopupNetwork(id)) {
         const [format, args] = POPUP_NETWORKS[id];
         popupCenter(stringFormat(format, args(ctx)));
@@ -55,7 +70,7 @@ function share(id: string, ctx: ShareContext): void {
 /**
  * Method for attaching the click handler to the link, replacing a previously attached one
  */
-function bindLink(el: Element, ctx: ShareContext): void {
+function bindLink(el: Element, values: ShareValues): void {
     const id = el.getAttribute('data-id');
     if (!id) {
         return;
@@ -69,7 +84,7 @@ function bindLink(el: Element, ctx: ShareContext): void {
         el.setAttribute(REF_ATTRIBUTE, ref);
     }
 
-    listeners[ref] = () => share(id, ctx);
+    listeners[ref] = () => share(id, values);
     el.addEventListener('click', listeners[ref]);
 }
 
@@ -78,10 +93,10 @@ function bindLink(el: Element, ctx: ShareContext): void {
  */
 function initForElement(el: Element): void {
     const links = el.querySelectorAll('a');
-    const ctx = getContext(el);
+    const values = getValues(el);
 
     for (let i = links.length; i--;) {
-        bindLink(links[i], ctx);
+        bindLink(links[i], values);
     }
 }
 

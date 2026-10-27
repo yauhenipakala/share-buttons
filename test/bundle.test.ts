@@ -6,8 +6,8 @@ import { FIXTURE_FULL, click, mount, shareBlock, stubBrowser } from './helpers';
 const read = (file: string) => fs.readFileSync(file, 'utf8');
 const bundle = () => read('dist/share-buttons.js');
 
-// v1.10.0 dist/share-buttons.js, gzip -9
-const V1_GZIP_SIZE = 1738;
+// v1.10.0 dist/share-buttons.js, zlib.gzipSync level 9 (same measure as below)
+const V1_GZIP_SIZE = 1714;
 
 describe('bundle', () => {
     afterEach(() => {
