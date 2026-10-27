@@ -25,10 +25,10 @@
 - Not in scope: an ESM build, network changes, changes to the auto-init model, publishing to npm.
 - `site/` is gitignored and never committed. `dist/` is committed.
 
-## Deviations from spec (verified by probe, 2026-10-27)
+## Changes from the first spec draft (verified by probe, 2026-10-27; spec updated to match)
 
-- Spec names `vite.config.ts` / `vite.demo.config.ts`. These become **`vite.config.mts` / `vite.demo.config.mts`** because of the `"type"` constraint above.
-- Spec names `vite-plugin-dts` `rollupTypes: true`. In v5 that option was renamed to `bundleTypes` and needs `@microsoft/api-extractor`. Instead, use `beforeWriteFile`: rename the entry's `share-buttons.d.ts` output, append the namespace line, and return `false` for every other file. The entry exports only `update(): void`, so its declaration file is already self-contained.
+- The first draft named `vite.config.ts` / `vite.demo.config.ts`. These become **`vite.config.mts` / `vite.demo.config.mts`** because of the `"type"` constraint above.
+- The first draft named `vite-plugin-dts` `rollupTypes: true`. In v5 that option was renamed to `bundleTypes` and needs `@microsoft/api-extractor`. Instead, use `beforeWriteFile`: rename the entry's `share-buttons.d.ts` output, append the namespace line, and return `false` for every other file. The entry exports only `update(): void`, so its declaration file is already self-contained.
 
 ## Review Focus
 
