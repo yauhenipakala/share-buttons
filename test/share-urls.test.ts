@@ -79,8 +79,7 @@ describe('share urls', () => {
         });
     });
 
-    // v1.10.0 drops `err` when logging; Task 2 fixes it and flips this to `it`.
-    it.fails('share rejection logs err', async () => {
+    it('share rejection logs err', async () => {
         const { share, log } = stubBrowser({ share: true });
         const err = new DOMException('cancel', 'AbortError');
         share.mockRejectedValue(err);

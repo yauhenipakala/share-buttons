@@ -44,10 +44,9 @@ export function stubBrowser(opts: { clipboard?: boolean; share?: boolean } = {})
     return { open, print, log, location, writeText, share };
 }
 
-export async function loadShareButtons(): Promise<{ update(): void }> {
+export async function loadShareButtons(): Promise<typeof import('../src/share-buttons')> {
     vi.resetModules();
-    // @ts-ignore legacy untyped JS (removed in Task 2)
-    return import('../src/share-buttons.js');
+    return import('../src/share-buttons');
 }
 
 export function click(selector: string): void {
