@@ -6,15 +6,13 @@ Simple, powerful, customizable and super lightweight (1 Kb Gzip) social buttons 
 
 ## Browser support
 
-* Google Chrome
-* Mozilla Firefox 3.5+
-* Opera 10+
-* Safari 3.2+
-* IE 8+
+* Modern evergreen browsers: Chrome, Firefox, Safari, Edge
 * Android
 * iOS
 
-**Copy to clipboard** is not supported on IE, see [browser compatibility for more information](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#browser_compatibility)
+Internet Explorer is not supported since v2.0.0 — use `share-buttons@1` if you need it.
+
+**Copy to clipboard** requires the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API#browser_compatibility)
 
 **WebShare API** is only partially supported, see [browser compatibility for more information](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#browser_compatibility)
 
