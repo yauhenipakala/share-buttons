@@ -1,8 +1,6 @@
-import { ACTIONS, NOT_SUPPORTED_MESSAGE, SHARE_LOG_TAG, isAction, log, popupCenter, stringFormat } from './actions';
-import { POPUP_NETWORKS, isPopupNetwork, type ShareContext } from './networks';
+import { HANDLERS, REQUIREMENTS, isShareId, type ShareContext } from './handlers';
+import { NOT_SUPPORTED_MESSAGE, log } from './utils';
 
-const COPY_ID = 'copy';
-const SHARE_ID = 'share';
 const REF_ATTRIBUTE = 'data-sharebtn-ref';
 
 /**
@@ -16,16 +14,6 @@ let refCounter = 0;
  * This to index listeners' for update or removal purpose.
  */
 const listeners: Record<string, EventListener> = {};
-
-/**
- * Set display=none for elements by selector
- */
-function hideAll(selector: string): void {
-    const elements = document.querySelectorAll<HTMLElement>(selector);
-    for (let i = elements.length; i--;) {
-        elements[i].style.display = 'none';
-    }
-}
 
 /**
  * Raw share values, encoded only when a link is clicked
@@ -59,11 +47,8 @@ function share(id: string, values: ShareValues): void {
         desc: encodeURIComponent(values.desc),
     };
 
-    if (isPopupNetwork(id)) {
-        const [format, args] = POPUP_NETWORKS[id];
-        popupCenter(stringFormat(format, args(ctx)));
-    } else if (isAction(id)) {
-        ACTIONS[id](ctx);
+    if (isShareId(id)) {
+        HANDLERS[id](ctx);
     }
 }
 
@@ -110,16 +95,15 @@ export function update(): void {
         initForElement(containers[i]);
     }
 
-    // Check if navigator.clipboard is supported. If not, hide all copy buttons.
-    if (!window.navigator.clipboard) {
-        hideAll('[data-id="' + COPY_ID + '"]');
-        log('navigator.clipboard(): ' + NOT_SUPPORTED_MESSAGE);
-    }
-
-    // Check if navigator.share is supported. If not, hide all share buttons.
-    if (!window.navigator.canShare) {
-        hideAll('[data-id="' + SHARE_ID + '"]');
-        log(SHARE_LOG_TAG + NOT_SUPPORTED_MESSAGE);
+    // Hide links whose browser API is missing
+    for (const [id, logTag, api] of REQUIREMENTS) {
+        if (!window.navigator[api]) {
+            const links = document.querySelectorAll<HTMLElement>('[data-id="' + id + '"]');
+            for (let i = links.length; i--;) {
+                links[i].style.display = 'none';
+            }
+            log(logTag + NOT_SUPPORTED_MESSAGE);
+        }
     }
 }
 

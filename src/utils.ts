@@ -1,11 +1,6 @@
-import type { ShareContext } from './networks';
-
-export type ActionId = 'mail' | 'print' | 'copy' | 'share';
-
 export const SHARE_LOG_TAG = 'navigator.share(): ';
 export const NOT_SUPPORTED_MESSAGE = 'This feature is not supported on this browser or operating system.';
 
-const MAIL_LINK_FORMAT = 'mailto:?subject={0}&body={1}';
 const POPUP_WIDTH = 600;
 const POPUP_HEIGHT = 400;
 const WINDOW_FORMAT = 'resizable,toolbar=yes,location=yes,scrollbars=yes,menubar=yes,width={0},height={1},top={2},left={3}';
@@ -50,44 +45,4 @@ export function popupCenter(url: string): void {
     if (newWindow !== null && newWindow.focus) {
         newWindow.focus();
     }
-}
-
-const decode = (text: string) => decodeURIComponent(text);
-
-/**
- * Share actions that don't open a popup window
- */
-export const ACTIONS: Record<ActionId, (c: ShareContext) => void> = {
-    mail: ({ url, title, desc }) => {
-        let text = title || desc || '';
-        if (title.length > 0 && desc.length > 0) {
-            text = mergeForTitle([title, desc]);
-        }
-        if (url.length > 0) {
-            text = text + ' / ' + url;
-        }
-
-        window.location.href = stringFormat(MAIL_LINK_FORMAT, [title, text]);
-    },
-
-    print: () => {
-        window.print();
-    },
-
-    copy: ({ url }) => {
-        window.navigator.clipboard.writeText(decode(url));
-    },
-
-    share: ({ url, title, desc }) => {
-        const text = decode(mergeForTitle([title, desc]));
-
-        window.navigator.share({ title: text, text, url: decode(url) })
-            .catch((err) => {
-                log(SHARE_LOG_TAG + 'Error', err);
-            });
-    },
-};
-
-export function isAction(id: string): id is ActionId {
-    return Object.prototype.hasOwnProperty.call(ACTIONS, id);
 }
