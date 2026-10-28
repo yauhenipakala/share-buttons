@@ -10,7 +10,6 @@ declare const BUILT_IN: {
     th: ShareHandler;
     tg: ShareHandler;
     re: ShareHandler;
-    ev: ShareHandler;
     in: ShareHandler;
     pi: ShareHandler;
     wa: ShareHandler;

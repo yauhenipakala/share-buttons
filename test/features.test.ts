@@ -38,6 +38,10 @@ describe('networks', () => {
   it('pk (Pocket, shut down) is gone', async () => {
     expect(await popupUrl('pk')).toBeUndefined();
   });
+
+  it('ev (Evernote, no documented share link) is gone', async () => {
+    expect(await popupUrl('ev')).toBeUndefined();
+  });
 });
 
 describe('register()', () => {

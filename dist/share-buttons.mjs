@@ -32,7 +32,6 @@ var o = (t, n) => (i) => r(e(t, n(a(i)))), s = (e) => (t) => {
 	th: o("https://www.threads.com/intent/post?text={0}&url={1}", d),
 	tg: o("https://t.me/share/url?url={0}&text={1}", u),
 	re: o("https://reddit.com/submit?url={0}&title={1}", l),
-	ev: o("https://www.evernote.com/clip.action?url={0}&t={1}", l),
 	in: o("https://www.linkedin.com/shareArticle?mini=true&url={0}&title={1}&summary={2}&source={0}", (e) => [
 		e.url,
 		e.title,

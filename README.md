@@ -81,7 +81,6 @@ Bluesky   | bs
 Threads   | th
 Telegram  | tg
 Reddit    | re
-Evernote  | ev
 LinkedIn  | in
 Pinterest | pi
 WhatsApp  | wa
@@ -95,7 +94,7 @@ Print     | print
 Copy      | copy
 WebShare API | share
 
-Pocket (`pk`) was removed in v2.0.0: the service shut down in July 2025.
+Removed in v2.0.0: Pocket (`pk`), the service shut down in July 2025, and Evernote (`ev`), which has no documented share link. Add either back with [`register()`](#registerid-handler) if you need it.
 
 Links without `href` get `role="button"` and `tabindex="0"` (unless you set your own), so they can be reached with Tab and shared with Enter or Space.
 

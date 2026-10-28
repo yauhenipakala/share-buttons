@@ -77,7 +77,6 @@ const BUILT_IN = {
   th: popup('https://www.threads.com/intent/post?text={0}&url={1}', mergedUrl),
   tg: popup('https://t.me/share/url?url={0}&text={1}', urlMerged),
   re: popup('https://reddit.com/submit?url={0}&title={1}', urlTitle),
-  ev: popup('https://www.evernote.com/clip.action?url={0}&t={1}', urlTitle),
   in: popup('https://www.linkedin.com/shareArticle?mini=true&url={0}&title={1}&summary={2}&source={0}', (c) => [c.url, c.title, merged(c)]),
   pi: popup('https://pinterest.com/pin/create/button/?url={0}&media={0}&description={1}', urlMerged),
   wa: popup('https://wa.me/?text={0}%20{1}', mergedUrl),
