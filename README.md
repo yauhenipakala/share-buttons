@@ -1,6 +1,6 @@
 # Share Buttons [![npm](https://img.shields.io/npm/v/share-buttons.svg)](https://www.npmjs.com/package/share-buttons) ![license](https://img.shields.io/github/license/yauhenipakala/share-buttons.svg)
 
-Simple, powerful, customizable and super lightweight (under 2 KB gzipped) social buttons for your site.
+Simple, powerful, customizable and super lightweight (1 Kb Gzip) social buttons for your site.
 
 ## [Demo](https://ypakala.com/demo/share-buttons/)
 
@@ -12,12 +12,12 @@ Any browser with ES2015:
 * Safari 10.1+, iOS Safari 10.1+
 * Android Chrome and WebView 51+
 
-Internet Explorer is not supported since v2.0.0 — use `share-buttons@1` if you need it.
+IE is not supported since v2.0.0 — use `share-buttons@1` if you need it.
 
 `copy` and `share` buttons are hidden where their API is missing:
 
-* **Copy** needs the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API#browser_compatibility): Chrome 66+, Firefox 63+, Safari 13.1+
-* **Share** needs the [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#browser_compatibility): Safari and iOS Safari 14+, Android Chrome, desktop Chrome and Edge on some platforms, not desktop Firefox
+* **copy** needs the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API#browser_compatibility): Chrome 66+, Firefox 63+, Safari 13.1+
+* **share** needs the [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#browser_compatibility): Safari and iOS Safari 14+, Android Chrome, desktop Chrome and Edge on some platforms, not desktop Firefox
 
 ## Install
 
@@ -36,7 +36,7 @@ import { update, share, register } from 'share-buttons';
 or include `share-buttons.js` in the end of page:
 
 ``` html
-<script src="<path>/dist/share-buttons.js"></script>
+<script src="path/to/dist/share-buttons.js"></script>
 ```
 
 ### Getting the library from CDN
@@ -97,7 +97,10 @@ Print     | print
 Copy      | copy
 WebShare API | share
 
-Removed in v2.0.0: Pocket (`pk`), the service shut down in July 2025, and Evernote (`ev`), which has no documented share link. Add either back with [`register()`](#registerid-handler) if you need it.
+Removed in v2.0.0:
+- Pocket (`pk`), the service shut down in July 2025;
+- Evernote (`ev`), which has no documented share link.
+Add either back with [`register()`](#registerid-handler) if you need it.
 
 Links without `href` get `role="button"` and `tabindex="0"` (unless you set your own), so they can be reached with Tab and shared with Enter or Space.
 
@@ -151,7 +154,7 @@ ShareButtons.share('tw', { url: 'https://example.com', title: 'Look at this' });
 
 ### TypeScript
 
-Types ship with the package: `ShareId` (built-in ids), `ShareContent` (`{ url, title, desc }`) and `ShareHandler`. With the `<script>` tag, the global `ShareButtons` is typed too.
+Types ship with the package. With the `<script>` tag, the global `ShareButtons` is typed too.
 
 ## Examples
 
