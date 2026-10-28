@@ -10,27 +10,29 @@ describe('demo build', () => {
   let html: string;
 
   beforeAll(async () => {
-    process.env.ANALYTICS = '<meta name="analytics" content="probe">';
+    process.env.VITE_ANALYTICS = '<meta name="analytics" content="probe">';
     outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sb-demo-'));
     await build({ configFile: 'vite.demo.config.mts', logLevel: 'silent', build: { outDir, emptyOutDir: true } });
     html = fs.readFileSync(path.join(outDir, 'index.html'), 'utf8');
   }, 30_000);
 
   afterAll(() => {
-    delete process.env.ANALYTICS;
+    delete process.env.VITE_ANALYTICS;
     fs.rmSync(outDir, { recursive: true, force: true });
   });
 
-  it('uses the published bundle', () => {
-    expect(html).toContain('src="js/share-buttons.min.js"');
-    expect(html).not.toContain('../dist/');
-    expect(fs.readFileSync(path.join(outDir, 'js/share-buttons.min.js'))).toEqual(fs.readFileSync('dist/share-buttons.js'));
+  const bundledScript = (page: string) => {
+    const src = page.match(/<script type="module" crossorigin src="\.\/(assets\/[^"]+\.js)"><\/script>/)?.[1];
+    return fs.readFileSync(path.join(outDir, src!), 'utf8');
+  };
+
+  it('bundles the library into the page', () => {
+    expect(html).not.toContain('../src/');
+    expect(bundledScript(html)).toContain('share-btn');
   });
 
-  it('injects analytics and minifies', () => {
-    expect(html).toContain('content="probe"');
-    expect(html).not.toContain('<!--');
-    expect(html.length).toBeLessThan(fs.readFileSync('demo/index.html', 'utf8').length);
+  it('injects analytics', () => {
+    expect(html).toContain('<meta name="analytics" content="probe">');
   });
 
   it('emits stylesheets referenced by the page', () => {
@@ -40,6 +42,14 @@ describe('demo build', () => {
     for (const href of hrefs) {
       expect(fs.existsSync(path.join(outDir, href))).toBe(true);
     }
+  });
+
+  it('builds the dynamic buttons page with the library bundled in', () => {
+    const page = fs.readFileSync(path.join(outDir, 'dynamic.html'), 'utf8');
+
+    expect(page).not.toContain('../src/');
+    expect(bundledScript(page)).toContain('share-btn');
+    expect(page).toContain('content="probe"');
   });
 
   it('copies stylesheets and images unchanged, so relative url() paths keep working', () => {

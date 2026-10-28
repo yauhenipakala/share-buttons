@@ -30,8 +30,9 @@
   <div class="share-btn" data-url="https://github.com/yauhenipakala/share-buttons">
   </div>
 
-  <script src="../dist/share-buttons.js"></script>
-  <script>
+  <script type="module">
+    import { update } from '../src/share-buttons.ts';
+
     var social = [
       {id: 'vk', className: 'btn-vk', icon: 'fab fa-vk', name: 'VK'},
       {id: 'fb', className: 'btn-facebook', icon: 'fab fa-square-facebook', name: 'Facebook'},
@@ -59,7 +60,13 @@
         '<i class="' + s.icon + '"></i> ' + s.name + '</a>';
     }
 
-    window.ShareButtons.update();
+    update();
   </script>
+
+  <!-- WILL BE CHANGED DURING DEPLOY -->
+
+  %VITE_ANALYTICS%
+
+  <!-- /WILL BE CHANGED DURING DEPLOY -->
 </body>
 </html>

@@ -3,12 +3,12 @@
   "version": "2.0.0",
   "description": "Simple social buttons for your site.",
   "scripts": {
-    "test": "vitest run",
+    "test": "vitest run -c vite.lib.config.mts",
     "pretest": "npm run build:lib",
-    "build:lib": "vite build",
+    "build:lib": "vite build -c vite.lib.config.mts",
     "build:demo": "vite build -c vite.demo.config.mts",
     "build": "npm run build:lib && npm run build:demo",
-    "dev": "concurrently \"vite build --watch\" \"vite -c vite.demo.config.mts\"",
+    "dev": "vite -c vite.demo.config.mts",
     "typecheck": "tsc"
   },
   "repository": {
@@ -23,10 +23,7 @@
   "homepage": "https://ypakala.com/demo/share-buttons/",
   "devDependencies": {
     "@microsoft/api-extractor": "^7.60.0",
-    "@types/html-minifier-terser": "^7.0.2",
     "@types/node": "^24.19.2",
-    "concurrently": "^10.0.6",
-    "html-minifier-terser": "^7.2.0",
     "jsdom": "^30.1.3",
     "typescript": "^6.0.3",
     "vite": "^8.3.5",

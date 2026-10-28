@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - 'example/**'
   workflow_dispatch:
 
 permissions:
@@ -43,7 +41,7 @@ jobs:
       - name: Build site
         run: npm run build
         env:
-          ANALYTICS: ${{ secrets.ANALYTICS }}
+          VITE_ANALYTICS: ${{ secrets.ANALYTICS }}
 
       - name: Stamp build revision
         run: |
