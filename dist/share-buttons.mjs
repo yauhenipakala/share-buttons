@@ -23,11 +23,10 @@ function a({ url: e, title: t, desc: n }) {
 var o = (t, n) => (i) => r(e(t, n(a(i)))), s = (e) => (t) => {
 	let n = a(t);
 	r(e.replace(/\{(url|title|desc)\}/g, (e, t) => n[t]));
-}, c = ({ title: e, desc: n }) => t([e, n]), l = (e) => [e.url, e.title], u = (e) => [e.url, c(e)], d = (e) => [c(e), e.url], f = o("https://x.com/intent/tweet?url={0}&text={1}", u), p = {
+}, c = ({ title: e, desc: n }) => t([e, n]), l = (e) => [e.url, e.title], u = (e) => [e.url, c(e)], d = (e) => [c(e), e.url], f = {
 	fb: o("https://www.facebook.com/sharer/sharer.php?u={0}&quote={1}", l),
 	vk: o("https://vk.com/share.php?url={0}&title={1}", u),
-	tw: f,
-	x: f,
+	tw: o("https://x.com/intent/tweet?url={0}&text={1}", u),
 	bs: o("https://bsky.app/intent/compose?text={0}%20{1}", d),
 	th: o("https://www.threads.com/intent/post?text={0}&url={1}", d),
 	tg: o("https://t.me/share/url?url={0}&text={1}", u),
@@ -68,7 +67,7 @@ var o = (t, n) => (i) => r(e(t, n(a(i)))), s = (e) => (t) => {
 			n(i + "Error", e);
 		});
 	}
-}, m = [[
+}, p = [[
 	"copy",
 	"navigator.clipboard(): ",
 	"clipboard"
@@ -77,15 +76,15 @@ var o = (t, n) => (i) => r(e(t, n(a(i)))), s = (e) => (t) => {
 	i,
 	"canShare"
 ]];
-function h(e, t) {
-	p[e] = typeof t == "string" ? s(t) : t;
+function m(e, t) {
+	f[e] = typeof t == "string" ? s(t) : t;
 }
-function g(e, t) {
-	return Object.prototype.hasOwnProperty.call(p, e) ? (p[e](t), !0) : !1;
+function h(e, t) {
+	return Object.prototype.hasOwnProperty.call(f, e) ? (f[e](t), !0) : !1;
 }
 // src/share-buttons.ts
-var _ = "data-sharebtn-ref", v = 0, y = {};
-function b(e) {
+var g = "data-sharebtn-ref", _ = 0, v = {};
+function y(e) {
 	let t = document.querySelector("meta[name=description]");
 	return {
 		url: e.url || window.location.href || " ",
@@ -93,38 +92,38 @@ function b(e) {
 		desc: e.desc || t && t.getAttribute("content") || " "
 	};
 }
-function x(e, t = {}) {
-	return g(e, b(t));
+function b(e, t = {}) {
+	return h(e, y(t));
 }
-function S(e, t) {
+function x(e, t) {
 	let n = e.getAttribute("data-id");
 	if (!n) return;
-	let r = e.getAttribute(_);
-	r ? (e.removeEventListener("click", y[r]), e.removeEventListener("keydown", y[r])) : (r = String(++v), e.setAttribute(_, r)), y[r] = (e) => {
+	let r = e.getAttribute(g);
+	r ? (e.removeEventListener("click", v[r]), e.removeEventListener("keydown", v[r])) : (r = String(++_), e.setAttribute(g, r)), v[r] = (e) => {
 		if (e.type === "keydown") {
 			let t = e.key;
 			if (t !== "Enter" && t !== " ") return;
 			e.preventDefault();
 		}
-		g(n, t);
-	}, e.addEventListener("click", y[r]), e.hasAttribute("href") || (e.hasAttribute("role") || e.setAttribute("role", "button"), e.hasAttribute("tabindex") || e.setAttribute("tabindex", "0"), e.addEventListener("keydown", y[r]));
+		h(n, t);
+	}, e.addEventListener("click", v[r]), e.hasAttribute("href") || (e.hasAttribute("role") || e.setAttribute("role", "button"), e.hasAttribute("tabindex") || e.setAttribute("tabindex", "0"), e.addEventListener("keydown", v[r]));
 }
-function C(e) {
-	let t = e.querySelectorAll("a"), n = b({
+function S(e) {
+	let t = e.querySelectorAll("a"), n = y({
 		url: e.getAttribute("data-url"),
 		title: e.getAttribute("data-title"),
 		desc: e.getAttribute("data-desc")
 	});
-	for (let e = t.length; e--;) S(t[e], n);
+	for (let e = t.length; e--;) x(t[e], n);
 }
-function w() {
+function C() {
 	let e = document.querySelectorAll(".share-btn");
-	for (let t = e.length; t--;) C(e[t]);
-	for (let [e, t, r] of m) if (!window.navigator[r]) {
+	for (let t = e.length; t--;) S(e[t]);
+	for (let [e, t, r] of p) if (!window.navigator[r]) {
 		let r = document.querySelectorAll("[data-id=\"" + e + "\"]");
 		for (let e = r.length; e--;) r[e].style.display = "none";
 		n(t + "This feature is not supported on this browser or operating system.");
 	}
 }
-typeof document < "u" && w();
-export { h as register, x as share, w as update };
+typeof document < "u" && C();
+export { m as register, b as share, C as update };

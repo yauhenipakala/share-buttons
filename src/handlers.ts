@@ -63,16 +63,13 @@ const urlTitle = (c: ShareContent): [string, string] => [c.url, c.title];
 const urlMerged = (c: ShareContent): [string, string] => [c.url, merged(c)];
 const mergedUrl = (c: ShareContent): [string, string] => [merged(c), c.url];
 
-const xPost = popup('https://x.com/intent/tweet?url={0}&text={1}', urlMerged);
-
 /**
  * Built-in handlers keyed by `data-id`
  */
 const BUILT_IN = {
   fb: popup('https://www.facebook.com/sharer/sharer.php?u={0}&quote={1}', urlTitle),
   vk: popup('https://vk.com/share.php?url={0}&title={1}', urlMerged),
-  tw: xPost,
-  x: xPost,
+  tw: popup('https://x.com/intent/tweet?url={0}&text={1}', urlMerged),
   bs: popup('https://bsky.app/intent/compose?text={0}%20{1}', mergedUrl),
   th: popup('https://www.threads.com/intent/post?text={0}&url={1}', mergedUrl),
   tg: popup('https://t.me/share/url?url={0}&text={1}', urlMerged),

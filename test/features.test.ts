@@ -19,12 +19,8 @@ function keydown(selector: string, key: string): KeyboardEvent {
 }
 
 describe('networks', () => {
-  it('tw shares to x.com', async () => {
+  it('tw shares to Twitter', async () => {
     expect(await popupUrl('tw')).toBe(`https://x.com/intent/tweet?url=${URL_ENC}&text=${MERGED_ENC}`);
-  });
-
-  it('x is an alias of tw', async () => {
-    expect(await popupUrl('x')).toBe(await popupUrl('tw'));
   });
 
   it('bs shares to Bluesky with the link in the text', async () => {

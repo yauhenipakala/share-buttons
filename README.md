@@ -51,7 +51,7 @@ Paste this HTML on the page:
 <div class="share-btn">
     <a data-id="vk">VK</a>
     <a data-id="fb">Facebook</a>
-    <a data-id="x">X</a>
+    <a data-id="tw">Twitter</a>
     <a data-id="tg">Telegram</a>
     <a data-id="mail">EMail</a>
 </div>
@@ -79,7 +79,7 @@ Network   | `data-id`
 ----------|---------
 Facebook  | fb
 VK        | vk
-X (Twitter) | x or tw
+Twitter / X | tw
 Bluesky   | bs
 Threads   | th
 Telegram  | tg
@@ -109,7 +109,7 @@ Custom 'url', 'title', 'description':
 <div class="share-btn" data-url="https://..." data-title="..." data-desc="...">
     <a data-id="vk">VK</a>
     <a data-id="fb">Facebook</a>
-    <a data-id="x">X</a>
+    <a data-id="tw">Twitter</a>
     <a data-id="tg">Telegram</a>
     <a data-id="mail">EMail</a>
 </div>
@@ -146,7 +146,7 @@ ShareButtons.register('log', ({ url, title, desc }) => console.log(url, title, d
 Shares from your own code, without `.share-btn` markup. Missing values fall back to the page's URL, title and meta description. Returns `false` when `id` is unknown.
 
 ```js
-ShareButtons.share('x', { url: 'https://example.com', title: 'Look at this' });
+ShareButtons.share('tw', { url: 'https://example.com', title: 'Look at this' });
 ```
 
 ### TypeScript
@@ -161,7 +161,7 @@ If you are using [Font-Awesome](https://github.com/FortAwesome/Font-Awesome):
 <div class="share-btn" data-url="https://..." data-title="..." data-desc="...">
     <a data-id="vk"><i class="fab fa-vk"></i> VK</a>
     <a data-id="fb"><i class="fab fa-square-facebook"></i> Facebook</a>
-    <a data-id="x"><i class="fab fa-x-twitter"></i> X</a>
+    <a data-id="tw"><i class="fab fa-twitter"></i> Twitter</a>
     <a data-id="tg"><i class="fab fa-telegram"></i> Telegram</a>
     <a data-id="mail"><i class="fas fa-at"></i> EMail</a>
 </div>

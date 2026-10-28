@@ -5,7 +5,6 @@ declare const BUILT_IN: {
     fb: ShareHandler;
     vk: ShareHandler;
     tw: ShareHandler;
-    x: ShareHandler;
     bs: ShareHandler;
     th: ShareHandler;
     tg: ShareHandler;
