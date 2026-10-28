@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='utf-8'>
+  <meta charset='utf-8'>
 
-    <title>Test page for sharing</title>
-    <meta name="description" content="Page description" />
+  <title>Test page for sharing</title>
+  <meta name="description" content="Page description" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <style>
-        /* Few styles :) */
-        .share-btn > a {
-            border: 1px solid #ccc;
-            padding: 5px;
-            font-size: 12px;
-            font-family: Verdana, Arial;
-        }
-        .share-btn > a:hover {
-            cursor: pointer;
-        }
-    </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <style>
+    /* Few styles :) */
+    .share-btn > a {
+      border: 1px solid #ccc;
+      padding: 5px;
+      font-size: 12px;
+      font-family: Verdana, Arial;
+    }
+    .share-btn > a:hover {
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
-    <p>Share this page with:</p>
+  <p>Share this page with:</p>
 
-    <!-- data-url="" data-title="" data-desc="" -->
+  <!-- data-url="" data-title="" data-desc="" -->
 
 
-    <div class="share-btn" data-url="https://github.com/yauhenipakala/share-buttons">
-    </div>
+  <div class="share-btn" data-url="https://github.com/yauhenipakala/share-buttons">
+  </div>
 
-    <script src="../dist/share-buttons.js"></script>
-    <script>
-        var social = [
-            {id: 'vk', className: 'btn-vk', icon: 'fab fa-vk', name: 'VK'},
-            {id: 'fb', className: 'btn-facebook', icon: 'fab fa-square-facebook', name: 'Facebook'},
-            {id: 'x', className: 'btn-x', icon: 'fab fa-x-twitter', name: 'X'},
-            {id: 'bs', className: 'btn-bluesky', icon: 'fab fa-bluesky', name: 'Bluesky'},
-            {id: 'th', className: 'btn-threads', icon: 'fab fa-threads', name: 'Threads'},
-            {id: 'tg', className: 'btn-telegram', icon: 'fab fa-telegram', name: 'Telegram'},
-            {id: 're', className: 'btn-reddit', icon: 'fab fa-reddit', name: 'Reddit'},
-            {id: 'ev', className: 'btn-evernote', icon: 'far fa-note-sticky', name: 'Evernote'},
-            {id: 'in', className: 'btn-linkedin', icon: 'fab fa-linkedin', name: 'LinkedIn'},
-            {id: 'pi', className: 'btn-pinterest', icon: 'fab fa-pinterest', name: 'Pinterest'},
-            {id: 'wa', className: 'btn-whatsapp', icon: 'fab fa-whatsapp', name: 'WhatsApp'},
-            {id: 'ok', className: 'btn-ok', icon: 'fab fa-odnoklassniki', name: 'Odnoklassniki'},
-            {id: 'tu', className: 'btn-tumblr', icon: 'fab fa-tumblr', name: 'Tumblr'},
-            {id: 'hn', className: 'btn-hn', icon: 'fab fa-hacker-news', name: 'Hacker News'},
-            {id: 'xi', className: 'btn-xing', icon: 'fab fa-xing', name: 'Xing'},
-            {id: 'mst', className: 'btn-teams', icon: 'fab fa-microsoft', name: 'Teams'},
-            {id: 'mail', className: 'btn-mail', icon: 'fas fa-at', name: 'EMail'},
-            {id: 'print', className: 'btn-print', icon: 'fas fa-print', name: 'Print'},
-        ]
-        var shareBtnContainer = document.getElementsByClassName('share-btn')[0];
-        for (var i = 0; i < social.length; i++) {
-            var s = social[i];
-            shareBtnContainer.innerHTML += '<a class="' + s.className + '" data-id="' + s.id + '">' +
-                '<i class="' + s.icon + '"></i> ' + s.name + '</a>';
-        }
+  <script src="../dist/share-buttons.js"></script>
+  <script>
+    var social = [
+      {id: 'vk', className: 'btn-vk', icon: 'fab fa-vk', name: 'VK'},
+      {id: 'fb', className: 'btn-facebook', icon: 'fab fa-square-facebook', name: 'Facebook'},
+      {id: 'x', className: 'btn-x', icon: 'fab fa-x-twitter', name: 'X'},
+      {id: 'bs', className: 'btn-bluesky', icon: 'fab fa-bluesky', name: 'Bluesky'},
+      {id: 'th', className: 'btn-threads', icon: 'fab fa-threads', name: 'Threads'},
+      {id: 'tg', className: 'btn-telegram', icon: 'fab fa-telegram', name: 'Telegram'},
+      {id: 're', className: 'btn-reddit', icon: 'fab fa-reddit', name: 'Reddit'},
+      {id: 'ev', className: 'btn-evernote', icon: 'far fa-note-sticky', name: 'Evernote'},
+      {id: 'in', className: 'btn-linkedin', icon: 'fab fa-linkedin', name: 'LinkedIn'},
+      {id: 'pi', className: 'btn-pinterest', icon: 'fab fa-pinterest', name: 'Pinterest'},
+      {id: 'wa', className: 'btn-whatsapp', icon: 'fab fa-whatsapp', name: 'WhatsApp'},
+      {id: 'ok', className: 'btn-ok', icon: 'fab fa-odnoklassniki', name: 'Odnoklassniki'},
+      {id: 'tu', className: 'btn-tumblr', icon: 'fab fa-tumblr', name: 'Tumblr'},
+      {id: 'hn', className: 'btn-hn', icon: 'fab fa-hacker-news', name: 'Hacker News'},
+      {id: 'xi', className: 'btn-xing', icon: 'fab fa-xing', name: 'Xing'},
+      {id: 'mst', className: 'btn-teams', icon: 'fab fa-microsoft', name: 'Teams'},
+      {id: 'mail', className: 'btn-mail', icon: 'fas fa-at', name: 'EMail'},
+      {id: 'print', className: 'btn-print', icon: 'fas fa-print', name: 'Print'},
+    ]
+    var shareBtnContainer = document.getElementsByClassName('share-btn')[0];
+    for (var i = 0; i < social.length; i++) {
+      var s = social[i];
+      shareBtnContainer.innerHTML += '<a class="' + s.className + '" data-id="' + s.id + '">' +
+        '<i class="' + s.icon + '"></i> ' + s.name + '</a>';
+    }
 
-        window.ShareButtons.update();
-    </script>
+    window.ShareButtons.update();
+  </script>
 </body>
 </html>
