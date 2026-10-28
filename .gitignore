@@ -3,5 +3,6 @@ coverage/
 site/
 *.log
 *.tgz
+.env
 *.local
 .DS_Store

@@ -32,6 +32,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Create env file
+        run: |
+          cat > .env <<'EOF'
+          VITE_ANALYTICS=`${{ secrets.ANALYTICS }}`
+          EOF
+
       - name: Typecheck
         run: npm run typecheck
 
@@ -40,8 +46,6 @@ jobs:
 
       - name: Build site
         run: npm run build
-        env:
-          VITE_ANALYTICS: ${{ secrets.ANALYTICS }}
 
       - name: Stamp build revision
         run: |
