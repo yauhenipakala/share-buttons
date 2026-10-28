@@ -18,15 +18,11 @@ exports[`share urls > popup ok url 1`] = `"https://connect.ok.ru/dk?st.cmd=Widge
 
 exports[`share urls > popup pi url 1`] = `"https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fexample.com%2Fpage%3Fa%3D1%26b%3D2&media=https%3A%2F%2Fexample.com%2Fpage%3Fa%3D1%26b%3D2&description=Hello%20%26%20welcome - %D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%20%D0%BC%D0%B8%D1%80"`;
 
-exports[`share urls > popup pk url 1`] = `"https://getpocket.com/edit?url=https%3A%2F%2Fexample.com%2Fpage%3Fa%3D1%26b%3D2&title=Hello%20%26%20welcome - %D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%20%D0%BC%D0%B8%D1%80"`;
-
 exports[`share urls > popup re url 1`] = `"https://reddit.com/submit?url=https%3A%2F%2Fexample.com%2Fpage%3Fa%3D1%26b%3D2&title=Hello%20%26%20welcome"`;
 
 exports[`share urls > popup tg url 1`] = `"https://t.me/share/url?url=https%3A%2F%2Fexample.com%2Fpage%3Fa%3D1%26b%3D2&text=Hello%20%26%20welcome - %D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%20%D0%BC%D0%B8%D1%80"`;
 
 exports[`share urls > popup tu url 1`] = `"https://www.tumblr.com/widgets/share/tool?posttype=link&title=Hello%20%26%20welcome - %D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%20%D0%BC%D0%B8%D1%80&caption=Hello%20%26%20welcome - %D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%20%D0%BC%D0%B8%D1%80&content=https%3A%2F%2Fexample.com%2Fpage%3Fa%3D1%26b%3D2&canonicalUrl=https%3A%2F%2Fexample.com%2Fpage%3Fa%3D1%26b%3D2&shareSource=tumblr_share_button"`;
-
-exports[`share urls > popup tw url 1`] = `"https://twitter.com/intent/tweet?url=https%3A%2F%2Fexample.com%2Fpage%3Fa%3D1%26b%3D2&text=Hello%20%26%20welcome - %D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%20%D0%BC%D0%B8%D1%80"`;
 
 exports[`share urls > popup vk url 1`] = `"https://vk.com/share.php?url=https%3A%2F%2Fexample.com%2Fpage%3Fa%3D1%26b%3D2&title=Hello%20%26%20welcome - %D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%20%D0%BC%D0%B8%D1%80"`;
 

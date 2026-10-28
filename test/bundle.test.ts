@@ -6,8 +6,8 @@ import { FIXTURE_FULL, click, mount, shareBlock, stubBrowser } from './helpers';
 const read = (file: string) => fs.readFileSync(file, 'utf8');
 const bundle = () => read('dist/share-buttons.js');
 
-// v1.10.0 dist/share-buttons.js, zlib.gzipSync level 9 (same measure as below)
-const V1_GZIP_SIZE = 1714;
+// "super lightweight" promise from the README
+const MAX_GZIP_SIZE = 2048;
 
 describe('bundle', () => {
     afterEach(() => {
@@ -21,6 +21,8 @@ describe('bundle', () => {
         new Function(bundle()).call(window);
 
         expect(typeof window.ShareButtons.update).toBe('function');
+        expect(typeof window.ShareButtons.register).toBe('function');
+        expect(typeof window.ShareButtons.share).toBe('function');
         click('[data-id="fb"]');
         expect(open.mock.calls[0][0]).toBe(
             'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fexample.com%2Fpage%3Fa%3D1%26b%3D2&quote=Hello%20%26%20welcome',
@@ -36,26 +38,41 @@ describe('bundle', () => {
         expect(typeof mod.exports.update).toBe('function');
     });
 
-    it('package stays CommonJS-compatible', () => {
+    it('exposes the API as an ES module', async () => {
+        stubBrowser();
+        const mod = await import('../dist/share-buttons.mjs');
+
+        expect(Object.keys(mod).sort()).toEqual(['register', 'share', 'update']);
+    });
+
+    it('package resolves import, require and types', () => {
         const pkg = JSON.parse(read('package.json'));
 
         expect(pkg.type).toBeUndefined();
         expect(pkg.main).toBe('dist/share-buttons.js');
+        expect(pkg.module).toBe('dist/share-buttons.mjs');
         expect(pkg.types).toBe('dist/share-buttons.d.ts');
+        expect(pkg.exports['.']).toEqual({
+            import: { types: './dist/share-buttons.d.mts', default: './dist/share-buttons.mjs' },
+            require: { types: './dist/share-buttons.d.ts', default: './dist/share-buttons.js' },
+        });
         expect(pkg.files).toEqual(['dist']);
     });
 
-    it('declarations are a single self-contained file', () => {
+    it('declarations are self-contained and describe the whole API', () => {
         const dts = read('dist/share-buttons.d.ts');
 
-        expect(dts).toContain('export declare function update(): void;');
+        for (const name of ['function update', 'function register', 'function share', 'interface ShareContent', 'type ShareHandler', 'type ShareId']) {
+            expect(dts).toContain('export declare ' + name);
+        }
         expect(dts).toContain('export as namespace ShareButtons;');
         expect(dts).not.toMatch(/\bimport\b/);
-        expect(fs.readdirSync('dist').sort()).toEqual(['share-buttons.d.ts', 'share-buttons.js']);
+        expect(read('dist/share-buttons.d.mts')).toBe(dts);
+        expect(fs.readdirSync('dist').sort()).toEqual(['share-buttons.d.mts', 'share-buttons.d.ts', 'share-buttons.js', 'share-buttons.mjs']);
     });
 
-    it('bundle is no larger than v1.10.0', () => {
-        expect(zlib.gzipSync(bundle(), { level: 9 }).length).toBeLessThanOrEqual(V1_GZIP_SIZE);
+    it('bundle stays under 2 KB gzipped', () => {
+        expect(zlib.gzipSync(bundle(), { level: 9 }).length).toBeLessThanOrEqual(MAX_GZIP_SIZE);
     });
 });
 

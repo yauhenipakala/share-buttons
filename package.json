@@ -22,6 +22,7 @@
   },
   "homepage": "https://ypakala.com/demo/share-buttons/",
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.60.0",
     "@types/html-minifier-terser": "^7.0.2",
     "@types/node": "^24.19.2",
     "concurrently": "^10.0.6",
@@ -33,7 +34,21 @@
     "vitest": "^5.0.5"
   },
   "main": "dist/share-buttons.js",
+  "module": "dist/share-buttons.mjs",
   "types": "dist/share-buttons.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/share-buttons.d.mts",
+        "default": "./dist/share-buttons.mjs"
+      },
+      "require": {
+        "types": "./dist/share-buttons.d.ts",
+        "default": "./dist/share-buttons.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist"
   ],
@@ -45,11 +60,12 @@
     "facebook",
     "vk",
     "twitter",
+    "x",
+    "bluesky",
+    "threads",
     "telegram",
-    "skype",
     "linkedin",
     "pinterest",
-    "pocket",
     "reddit",
     "evernote",
     "whatsapp",
@@ -61,7 +77,6 @@
     "email",
     "print",
     "copy",
-    "webshare",
-    "teams"
+    "webshare"
   ]
 }

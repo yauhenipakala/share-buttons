@@ -6,7 +6,7 @@ export const FIXTURE_FULL = {
     desc: 'Привет мир',
 };
 
-export const POPUP_IDS = ['fb', 'vk', 'tw', 'tg', 'pk', 're', 'ev', 'in', 'pi', 'wa', 'ok', 'tu', 'hn', 'xi', 'mst'] as const;
+export const POPUP_IDS = ['fb', 'vk', 'tg', 're', 'ev', 'in', 'pi', 'wa', 'ok', 'tu', 'hn', 'xi', 'mst'] as const;
 
 export const PAGE_HREF = 'https://page.example/';
 

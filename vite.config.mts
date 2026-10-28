@@ -1,5 +1,8 @@
+import fs from 'node:fs';
 import { defineConfig } from 'vitest/config';
 import dts from 'vite-plugin-dts';
+
+const DTS = 'dist/share-buttons.d.ts';
 
 export default defineConfig({
     build: {
@@ -8,9 +11,9 @@ export default defineConfig({
         emptyOutDir: true,
         lib: {
             entry: 'src/share-buttons.ts',
-            formats: ['umd'],
+            formats: ['es', 'umd'],
             name: 'ShareButtons',
-            fileName: () => 'share-buttons.js',
+            fileName: (format) => format === 'es' ? 'share-buttons.mjs' : 'share-buttons.js',
         },
         rolldownOptions: {
             // plain exports object like v1, no Symbol.toStringTag marker
@@ -20,10 +23,13 @@ export default defineConfig({
     plugins: [
         dts({
             include: ['src'],
-            // Ship only the entry's declarations (it exports nothing but `update`), usable as a global too
-            beforeWriteFile: (filePath, content) => filePath.endsWith('/share-buttons.d.ts')
-                ? { filePath, content: content + '\nexport as namespace ShareButtons;\n' }
-                : false,
+            bundleTypes: true,
+            // Same declarations for require (.d.ts) and import (.d.mts), also usable as the global `ShareButtons`
+            afterBuild: () => {
+                const content = fs.readFileSync(DTS, 'utf8') + '\nexport as namespace ShareButtons;\n';
+                fs.writeFileSync(DTS, content);
+                fs.writeFileSync(DTS.replace(/\.ts$/, '.mts'), content);
+            },
         }),
     ],
     test: {

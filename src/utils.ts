@@ -1,4 +1,3 @@
-export const SHARE_LOG_TAG = 'navigator.share(): ';
 export const NOT_SUPPORTED_MESSAGE = 'This feature is not supported on this browser or operating system.';
 
 const POPUP_WIDTH = 600;

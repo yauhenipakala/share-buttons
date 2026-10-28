@@ -1,5 +1,8 @@
-import { HANDLERS, REQUIREMENTS, isShareId, type ShareContext } from './handlers';
+import { REQUIREMENTS, register, runHandler, type ShareContent, type ShareHandler, type ShareId } from './handlers';
 import { NOT_SUPPORTED_MESSAGE, log } from './utils';
+
+export { register };
+export type { ShareContent, ShareHandler, ShareId };
 
 const REF_ATTRIBUTE = 'data-sharebtn-ref';
 
@@ -16,46 +19,31 @@ let refCounter = 0;
 const listeners: Record<string, EventListener> = {};
 
 /**
- * Raw share values, encoded only when a link is clicked
+ * Method for getting url, title and description from the given values or the page
  */
-interface ShareValues {
-    url: string;
-    title: string;
-    desc: string;
-}
-
-/**
- * Method for getting url, title and description from the container or the page
- */
-function getValues(share: Element): ShareValues {
+function getValues(given: { [K in keyof ShareContent]?: string | null }): ShareContent {
     const metaDesc = document.querySelector('meta[name=description]');
 
     return {
-        url: share.getAttribute('data-url') || window.location.href || ' ',
-        title: share.getAttribute('data-title') || document.title || ' ',
-        desc: share.getAttribute('data-desc') || (metaDesc && metaDesc.getAttribute('content')) || ' ',
+        url: given.url || window.location.href || ' ',
+        title: given.title || document.title || ' ',
+        desc: given.desc || (metaDesc && metaDesc.getAttribute('content')) || ' ',
     };
 }
 
 /**
- * Method for handling chosen links
+ * Share from code, without `.share-btn` markup. Missing values fall back to the page's url, title and meta description.
+ * Returns false when no handler is known for `id`.
  */
-function share(id: string, values: ShareValues): void {
-    const ctx: ShareContext = {
-        url: encodeURIComponent(values.url),
-        title: encodeURIComponent(values.title),
-        desc: encodeURIComponent(values.desc),
-    };
-
-    if (isShareId(id)) {
-        HANDLERS[id](ctx);
-    }
+export function share(id: ShareId | (string & {}), data: Partial<ShareContent> = {}): boolean {
+    return runHandler(id, getValues(data));
 }
 
 /**
- * Method for attaching the click handler to the link, replacing a previously attached one
+ * Method for attaching the click (and, for links without href, Enter/Space) handler to the link,
+ * replacing a previously attached one
  */
-function bindLink(el: Element, values: ShareValues): void {
+function bindLink(el: Element, values: ShareContent): void {
     const id = el.getAttribute('data-id');
     if (!id) {
         return;
@@ -64,13 +52,34 @@ function bindLink(el: Element, values: ShareValues): void {
     let ref = el.getAttribute(REF_ATTRIBUTE);
     if (ref) {
         el.removeEventListener('click', listeners[ref]);
+        el.removeEventListener('keydown', listeners[ref]);
     } else {
         ref = String(++refCounter);
         el.setAttribute(REF_ATTRIBUTE, ref);
     }
 
-    listeners[ref] = () => share(id, values);
+    listeners[ref] = (event) => {
+        if (event.type === 'keydown') {
+            const key = (event as KeyboardEvent).key;
+            if (key !== 'Enter' && key !== ' ') {
+                return;
+            }
+            event.preventDefault();
+        }
+        runHandler(id, values);
+    };
     el.addEventListener('click', listeners[ref]);
+
+    // Without href a link is neither focusable nor announced as clickable
+    if (!el.hasAttribute('href')) {
+        if (!el.hasAttribute('role')) {
+            el.setAttribute('role', 'button');
+        }
+        if (!el.hasAttribute('tabindex')) {
+            el.setAttribute('tabindex', '0');
+        }
+        el.addEventListener('keydown', listeners[ref]);
+    }
 }
 
 /**
@@ -78,7 +87,11 @@ function bindLink(el: Element, values: ShareValues): void {
  */
 function initForElement(el: Element): void {
     const links = el.querySelectorAll('a');
-    const values = getValues(el);
+    const values = getValues({
+        url: el.getAttribute('data-url'),
+        title: el.getAttribute('data-title'),
+        desc: el.getAttribute('data-desc'),
+    });
 
     for (let i = links.length; i--;) {
         bindLink(links[i], values);
@@ -107,5 +120,7 @@ export function update(): void {
     }
 }
 
-// start
-update();
+// start, skipped during server-side rendering
+if (typeof document !== 'undefined') {
+    update();
+}
