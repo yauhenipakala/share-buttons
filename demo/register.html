@@ -22,11 +22,12 @@
 </head>
 <body>
 
-  <p>Networks added with <code>register()</code>:</p>
+  <p>Networks added or replaced with <code>register()</code>:</p>
 
   <div class="share-btn" data-url="https://github.com/yauhenipakala/share-buttons" data-title="Share buttons">
     <a data-id="line"><i class="fab fa-line"></i> LINE</a>
     <a data-id="show"><i class="fas fa-eye"></i> Show values</a>
+    <a data-id="fb"><i class="fab fa-square-facebook"></i> Facebook (overridden)</a>
   </div>
 
   <pre id="values"></pre>
@@ -40,6 +41,11 @@
     // any action: gets the raw values
     register('show', ({ url, title, desc }) => {
       document.getElementById('values').textContent = JSON.stringify({ url, title, desc }, null, 2);
+    });
+
+    // replace a built-in network
+    register('fb', ({ url }) => {
+      alert('Facebook is overridden with register()\n\n' + url);
     });
   </script>
 
