@@ -6,15 +6,18 @@ Simple, powerful, customizable and super lightweight (under 2 KB gzipped) social
 
 ## Browser support
 
-* Modern evergreen browsers: Chrome, Firefox, Safari, Edge
-* Android
-* iOS
+Any browser with ES2015:
+
+* Chrome 51+, Edge 15+, Firefox 54+
+* Safari 10.1+, iOS Safari 10.1+
+* Android Chrome and WebView 51+
 
 Internet Explorer is not supported since v2.0.0 — use `share-buttons@1` if you need it.
 
-**Copy to clipboard** requires the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API#browser_compatibility)
+`copy` and `share` buttons are hidden where their API is missing:
 
-**WebShare API** is only partially supported, see [browser compatibility for more information](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#browser_compatibility)
+* **Copy** needs the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API#browser_compatibility): Chrome 66+, Firefox 63+, Safari 13.1+
+* **Share** needs the [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#browser_compatibility): Safari and iOS Safari 14+, Android Chrome, desktop Chrome and Edge on some platforms, not desktop Firefox
 
 ## Install
 
