@@ -15,6 +15,7 @@ export default defineConfig({
       input: {
         index: path.resolve('demo/index.html'),
         dynamic: path.resolve('demo/dynamic.html'),
+        register: path.resolve('demo/register.html'),
       },
     },
   },

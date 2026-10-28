@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+
+  <title>Custom share handlers</title>
+  <meta name="description" content="Page description" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <style>
+    /* Few styles :) */
+    .share-btn > a {
+      border: 1px solid #ccc;
+      padding: 5px;
+      font-size: 12px;
+      font-family: Verdana, Arial;
+    }
+    .share-btn > a:hover {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <p>Networks added with <code>register()</code>:</p>
+
+  <div class="share-btn" data-url="https://github.com/yauhenipakala/share-buttons" data-title="Share buttons">
+    <a data-id="line"><i class="fab fa-line"></i> LINE</a>
+    <a data-id="show"><i class="fas fa-eye"></i> Show values</a>
+  </div>
+
+  <pre id="values"></pre>
+
+  <script type="module">
+    import { register } from '../src/share-buttons.ts';
+
+    // a popup link: {url}, {title} and {desc} are URL-encoded for you
+    register('line', 'https://social-plugins.line.me/lineit/share?url={url}');
+
+    // any action: gets the raw values
+    register('show', ({ url, title, desc }) => {
+      document.getElementById('values').textContent = JSON.stringify({ url, title, desc }, null, 2);
+    });
+  </script>
+
+  <!-- WILL BE CHANGED DURING DEPLOY -->
+
+  %VITE_ANALYTICS%
+
+  <!-- /WILL BE CHANGED DURING DEPLOY -->
+</body>
+</html>

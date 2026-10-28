@@ -52,6 +52,14 @@ describe('demo build', () => {
     expect(page).toContain('content="probe"');
   });
 
+  it('builds the custom handlers page with the library bundled in', () => {
+    const page = fs.readFileSync(path.join(outDir, 'register.html'), 'utf8');
+
+    expect(page).not.toContain('../src/');
+    expect(bundledScript(page)).toContain('social-plugins.line.me/lineit/share?url={url}');
+    expect(page).toContain('content="probe"');
+  });
+
   it('copies stylesheets and images unchanged, so relative url() paths keep working', () => {
     for (const dir of ['css', 'images']) {
       const files = fs.readdirSync(path.join('demo/public', dir));
