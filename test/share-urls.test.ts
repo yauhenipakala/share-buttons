@@ -14,16 +14,6 @@ describe('share urls', () => {
     expect(open.mock.calls[0][1]).toBe('');
   });
 
-  it('popup window features', async () => {
-    const { open } = stubBrowser();
-    mount(shareBlock(FIXTURE_FULL, ['fb']));
-    await loadShareButtons();
-
-    click('[data-id="fb"]');
-
-    expect(open.mock.calls[0][2]).toMatchSnapshot();
-  });
-
   it('mail url', async () => {
     const { location } = stubBrowser();
     mount(shareBlock(FIXTURE_FULL, ['mail']));

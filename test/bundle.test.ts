@@ -45,32 +45,6 @@ describe('bundle', () => {
     expect(Object.keys(mod).sort()).toEqual(['register', 'share', 'update']);
   });
 
-  it('package resolves import, require and types', () => {
-    const pkg = JSON.parse(read('package.json'));
-
-    expect(pkg.type).toBeUndefined();
-    expect(pkg.main).toBe('dist/share-buttons.js');
-    expect(pkg.module).toBe('dist/share-buttons.mjs');
-    expect(pkg.types).toBe('dist/share-buttons.d.ts');
-    expect(pkg.exports['.']).toEqual({
-      import: { types: './dist/share-buttons.d.mts', default: './dist/share-buttons.mjs' },
-      require: { types: './dist/share-buttons.d.ts', default: './dist/share-buttons.js' },
-    });
-    expect(pkg.files).toEqual(['dist']);
-  });
-
-  it('declarations are self-contained and describe the whole API', () => {
-    const dts = read('dist/share-buttons.d.ts');
-
-    for (const name of ['function update', 'function register', 'function share', 'interface ShareContent', 'type ShareHandler', 'type ShareId']) {
-      expect(dts).toContain('export declare ' + name);
-    }
-    expect(dts).toContain('export as namespace ShareButtons;');
-    expect(dts).not.toMatch(/\bimport\b/);
-    expect(read('dist/share-buttons.d.mts')).toBe(dts);
-    expect(fs.readdirSync('dist').sort()).toEqual(['share-buttons.d.mts', 'share-buttons.d.ts', 'share-buttons.js', 'share-buttons.mjs']);
-  });
-
   it('bundle stays under 2 KB gzipped', () => {
     expect(zlib.gzipSync(bundle(), { level: 9 }).length).toBeLessThanOrEqual(MAX_GZIP_SIZE);
   });

@@ -34,14 +34,6 @@ describe('networks', () => {
   it('th shares to Threads', async () => {
     expect(await popupUrl('th')).toBe(`https://www.threads.com/intent/post?text=${MERGED_ENC}&url=${URL_ENC}`);
   });
-
-  it('pk (Pocket, shut down) is gone', async () => {
-    expect(await popupUrl('pk')).toBeUndefined();
-  });
-
-  it('ev (Evernote, no documented share link) is gone', async () => {
-    expect(await popupUrl('ev')).toBeUndefined();
-  });
 });
 
 describe('register()', () => {

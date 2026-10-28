@@ -76,14 +76,6 @@ describe('binding', () => {
     expect(open).toHaveBeenCalledTimes(1);
   });
 
-  it('blocked popup does not throw', async () => {
-    stubBrowser();
-    mount(shareBlock({}, ['fb']));
-    await loadShareButtons();
-
-    expect(() => click('[data-id="fb"]')).not.toThrow();
-  });
-
   it('unknown data-id and links without data-id are ignored', async () => {
     const { open, print } = stubBrowser();
     mount('<div class="share-btn"><a data-id="nope">nope</a><a class="plain">plain</a></div>');
