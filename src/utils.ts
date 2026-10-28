@@ -1,9 +1,5 @@
 export const NOT_SUPPORTED_MESSAGE = 'This feature is not supported on this browser or operating system.';
 
-const POPUP_WIDTH = 600;
-const POPUP_HEIGHT = 400;
-const WINDOW_FORMAT = 'resizable,toolbar=yes,location=yes,scrollbars=yes,menubar=yes,width={0},height={1},top={2},left={3}';
-
 /**
  * Method for get string in the special format by arguments
  * from https://ypakala.com/notes/string-format-for-string-formating-in-javascript
@@ -27,21 +23,16 @@ export function log(...args: unknown[]): void {
 }
 
 /**
- * Method for opening popup window
+ * Method for opening a popup window centered over the current one
  */
-export function popupCenter(url: string): void {
-    const w = window;
-    const d = w.document;
-    const legacyScreen = screen as Screen & { left?: number; top?: number };
-    const dualScreenLeft = typeof w.screenLeft !== 'undefined' ? w.screenLeft : legacyScreen.left as number;
-    const dualScreenTop = typeof w.screenTop !== 'undefined' ? w.screenTop : legacyScreen.top as number;
-    const width = w.innerWidth || d.documentElement.clientWidth || screen.width;
-    const height = w.innerHeight || d.documentElement.clientHeight || screen.height;
-    const left = ((width / 2) - (POPUP_WIDTH / 2)) + dualScreenLeft;
-    const top = ((height / 3) - (POPUP_HEIGHT / 3)) + dualScreenTop;
-    const newWindow = w.open(url, '', stringFormat(WINDOW_FORMAT, [POPUP_WIDTH, POPUP_HEIGHT, top, left]));
+export function popupCenter(url: string, width = 600, height = 400): void {
+    const viewWidth = window.innerWidth || document.documentElement.clientWidth || screen.width;
+    const viewHeight = window.innerHeight || document.documentElement.clientHeight || screen.height;
+    const left = viewWidth / 2 - width / 2 + window.screenLeft;
+    const top = viewHeight / 3 - height / 3 + window.screenTop;
+    const popup = window.open(url, '', `resizable,toolbar=yes,location=yes,scrollbars=yes,menubar=yes,width=${width},height=${height},top=${top},left=${left}`);
 
-    if (newWindow !== null && newWindow.focus) {
-        newWindow.focus();
+    if (popup !== null && popup.focus) {
+        popup.focus();
     }
 }

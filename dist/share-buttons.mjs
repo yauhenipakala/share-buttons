@@ -7,14 +7,9 @@ function t(e) {
 function n(...e) {
 	window.console.log(...e);
 }
-function r(t) {
-	let n = window, r = n.document, i = screen, a = n.screenLeft === void 0 ? i.left : n.screenLeft, o = n.screenTop === void 0 ? i.top : n.screenTop, s = n.innerWidth || r.documentElement.clientWidth || screen.width, c = n.innerHeight || r.documentElement.clientHeight || screen.height, l = s / 2 - 300 + a, u = c / 3 - 400 / 3 + o, d = n.open(t, "", e("resizable,toolbar=yes,location=yes,scrollbars=yes,menubar=yes,width={0},height={1},top={2},left={3}", [
-		600,
-		400,
-		u,
-		l
-	]));
-	d !== null && d.focus && d.focus();
+function r(e, t = 600, n = 400) {
+	let r = window.innerWidth || document.documentElement.clientWidth || screen.width, i = window.innerHeight || document.documentElement.clientHeight || screen.height, a = r / 2 - t / 2 + window.screenLeft, o = i / 3 - n / 3 + window.screenTop, s = window.open(e, "", `resizable,toolbar=yes,location=yes,scrollbars=yes,menubar=yes,width=${t},height=${n},top=${o},left=${a}`);
+	s !== null && s.focus && s.focus();
 }
 // src/handlers.ts
 var i = "navigator.share(): ";
